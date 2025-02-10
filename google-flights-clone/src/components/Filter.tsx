@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Calendar, Search, ArrowLeftRight } from "lucide-react"; // Adjust the path based on your structure
-import { SearchFlights, SearchFlightsParams } from "../api/search-flights/searchFlights";
+import { SearchFlights } from "../api/search-flights/searchFlights";
 
 export interface Flight {
   airline: string;
