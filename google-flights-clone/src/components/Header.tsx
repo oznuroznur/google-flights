@@ -35,6 +35,11 @@ export default function Header() {
         <Box sx={{ flexGrow: 1, width: "100%" }}>
           <Grid container alignItems="center" spacing={2}>
             {/* Left section: Logo and MenuIcon */}
+            <a
+              
+              href="/">
+
+             
             <Grid
               xs={12}
               sm={8}
@@ -43,6 +48,7 @@ export default function Header() {
               alignItems="center"
               justifyContent={isMobile ? "center" : "flex-start"}
             >
+              
               <MenuIcon className="text-white mr-2" />
               <Typography
                 variant="h5"
@@ -51,8 +57,9 @@ export default function Header() {
               >
                 Google
               </Typography>
+           
             </Grid>
-
+            </a>
             {/* Center section: Tabs */}
             <Grid
               xs={12}
