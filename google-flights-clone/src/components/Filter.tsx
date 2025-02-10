@@ -1,43 +1,60 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Calendar, Search, ArrowLeftRight } from "lucide-react"
+import { useState } from "react";
+import { Calendar, Search, ArrowLeftRight } from "lucide-react";
+
+interface Flight {
+  airline: string;
+  departure: string;
+  arrival: string;
+  price: number;
+}
 
 export default function FlightSearch() {
-  const [tripType, setTripType] = useState("roundtrip")
-  const [passengers, setPassengers] = useState("1")
-  const [cabinClass, setCabinClass] = useState("economy")
-  const [origin, setOrigin] = useState("")
-  const [destination, setDestination] = useState("")
-  const [departDate, setDepartDate] = useState("")
-  const [returnDate, setReturnDate] = useState("")
-  const [searched, setSearched] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [flights, setFlights] = useState([])
+  const [tripType, setTripType] = useState("roundtrip");
+  const [passengers, setPassengers] = useState("1");
+  const [cabinClass, setCabinClass] = useState("economy");
+  const [origin, setOrigin] = useState("");
+  const [destination, setDestination] = useState("");
+  const [departDate, setDepartDate] = useState("");
+  const [returnDate, setReturnDate] = useState("");
+  const [searched, setSearched] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [flights, setFlights] = useState<Flight[]>([]);
 
   const handleSwapLocations = () => {
-    const temp = origin
-    setOrigin(destination)
-    setDestination(temp)
-  }
+    const temp = origin;
+    setOrigin(destination);
+    setDestination(temp);
+  };
 
   const handleSearch = () => {
-    setLoading(true)
+    setLoading(true);
     // Simulate API call
     setTimeout(() => {
       setFlights([
-        { airline: "Turkish Airlines", departure: "10:00", arrival: "12:00", price: 199 },
-        { airline: "Pegasus", departure: "14:00", arrival: "16:00", price: 149 },
-      ])
-      setLoading(false)
-      setSearched(true)
-    }, 1500)
-  }
+        {
+          airline: "Turkish Airlines",
+          departure: "10:00",
+          arrival: "12:00",
+          price: 199,
+        },
+        {
+          airline: "Pegasus",
+          departure: "14:00",
+          arrival: "16:00",
+          price: 149,
+        },
+      ]);
+      setLoading(false);
+      setSearched(true);
+    }, 1500);
+  };
 
   const resetSearch = () => {
-    setSearched(false)
-    setFlights([])
-  }
+    setSearched(false);
+    setFlights([]);
+  };
 
   return (
     <div className="min-h-screen p-4 flex items-start justify-center">
@@ -104,38 +121,36 @@ export default function FlightSearch() {
                 <div className="md:col-span-3">
                   <input
                     type="text"
-                    placeholder="Where to?"
+                    placeholder="Where to"
                     value={destination}
                     onChange={(e) => setDestination(e.target.value)}
                     className="w-full bg-[#202124] text-white rounded px-4 py-2 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
-                  {/* Date Selection */}
-              <div className="grid grid-cols-1 md:grid-cols-2 col-span-5 gap-4">
-                <div className="relative">
-                  <Calendar className="absolute left-3 top-3 h-4 w-4 text-zinc-400" />
-                  <input
-                    type="date"
-                    value={departDate}
-                    onChange={(e) => setDepartDate(e.target.value)}
-                    className="w-full pl-10 bg-[#202124] text-white rounded px-4 py-2 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-                {tripType === "roundtrip" && (
+                {/* Date Selection */}
+                <div className="grid grid-cols-1 md:grid-cols-2 col-span-5 gap-4">
                   <div className="relative">
                     <Calendar className="absolute left-3 top-3 h-4 w-4 text-zinc-400" />
                     <input
                       type="date"
-                      value={returnDate}
-                      onChange={(e) => setReturnDate(e.target.value)}
+                      value={departDate}
+                      onChange={(e) => setDepartDate(e.target.value)}
                       className="w-full pl-10 bg-[#202124] text-white rounded px-4 py-2 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
-                )}
+                  {tripType === "roundtrip" && (
+                    <div className="relative">
+                      <Calendar className="absolute left-3 top-3 h-4 w-4 text-zinc-400" />
+                      <input
+                        type="date"
+                        value={returnDate}
+                        onChange={(e) => setReturnDate(e.target.value)}
+                        className="w-full pl-10 bg-[#202124] text-white rounded px-4 py-2 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      />
+                    </div>
+                  )}
+                </div>
               </div>
-              </div>
-
-            
 
               {/* Search Button */}
               <div className="flex justify-center">
@@ -181,26 +196,23 @@ export default function FlightSearch() {
                           <td className="py-3 px-4">{flight.airline}</td>
                           <td className="py-3 px-4">{flight.departure}</td>
                           <td className="py-3 px-4">{flight.arrival}</td>
-                          <td className="py-3 px-4 text-right">${flight.price}</td>
+                          <td className="py-3 px-4 text-right">
+                            ${flight.price}
+                          </td>
                         </tr>
                       ))}
                     </tbody>
                   </table>
                 </div>
               ) : (
-                <p className="text-center text-zinc-400">No flights found. Try a different search.</p>
+                <p className="text-center text-zinc-400">
+                  No flights found. Try a different search.
+                </p>
               )}
             </div>
           </div>
         )}
       </div>
     </div>
-  )
+  );
 }
-
-
-
-
-
-
-
