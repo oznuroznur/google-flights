@@ -1,29 +1,10 @@
 "use client";
 import { useState } from "react"
-import {
-  TextField,
-  Button,
-  Box,
-  CircularProgress,
-  Typography,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  IconButton,
-  Select,
-  MenuItem,
-  FormControl,
-} from "@mui/material"
-import { Search, SwapHoriz, Person, CompareArrows, LocationOn, CalendarMonth } from "@mui/icons-material"
-import axios from "axios"
+import Header from "./components/Header";
+import Filter from "./components/Filter";
+import { Typography } from "@mui/material";
 
 
-const API_KEY = "f741b72d05msh0c553e839d14d3bp14cf49jsnfa0d38c4629b";
-const BASE_URL = "https://sky-scrapper.p.rapidapi.com/api/v1/flights";
 
 interface Flight {
   airline: string;
@@ -32,78 +13,34 @@ interface Flight {
   price: number;
 }
 
-export default function Component() {
-  const [tripType, setTripType] = useState("roundtrip")
-  const [origin, setOrigin] = useState("")
-  const [destination, setDestination] = useState("")
-  const [departDate, setDepartDate] = useState("")
-  const [returnDate, setReturnDate] = useState("")
-  const [passengers, setPassengers] = useState("1")
-  const [cabinClass, setCabinClass] = useState("economy")
-  const [flights, setFlights] = useState<Flight[]>([])
-  const [loading, setLoading] = useState(false)
-  const [searched, setSearched] = useState(false)
-
-  const searchFlights = async () => {
-    if (!origin || !destination || !departDate) return
-
-    setLoading(true)
-    setSearched(true)
-
-    try {
-      const response = await axios.get(`${BASE_URL}/searchFlights`, {
-        params: {
-          from: origin,
-          to: destination,
-          date: departDate,
-          returnDate: tripType === "roundtrip" ? returnDate : undefined,
-          passengers,
-          cabinClass,
-        },
-        headers: {
-          "X-RapidAPI-Key": API_KEY,
-          "X-RapidAPI-Host": "sky-scrapper.p.rapidapi.com",
-        },
-      })
-
-      setFlights(response.data || [])
-    } catch (error) {
-      console.error("Error fetching flights:", error)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const handleSwapLocations = () => {
-    setOrigin(destination)
-    setDestination(origin)
-  }
-
-  const resetSearch = () => {
-    setFlights([])
-    setSearched(false)
-    setOrigin("")
-    setDestination("")
-    setDepartDate("")
-    setReturnDate("")
-  }
-
+export default function Component() {  
   return (
     <div className="min-h-screen items-center mx-auto justify-center container flex-1  ">
-      <div className="bg-[url(/banner.svg)] bg-no-repeat bg-cover h-[350px] relative ">
+      <Header />
+
+
+      <div className="bg-[url(/banner.png)] bg-no-repeat bg-contain h-[350px] relative ">
       <Typography
         variant="h3"
         color="white"
-        className="text-violet-800 z-50 absolute bottom-0 pb-6"
+        style={{
+          textAlign: "center",
+          width: "100%",
+        }}
+        className="absolute bottom-1/4 pb-6 text-center"
       >
         Flights
       </Typography>
       </div>
-     
+      <Filter />
 
-      <div className="max-w-4xl mx-auto -mt-6 justify-center items-center ">
+    {/*   <div className="max-w-4xl mx-auto -mt-6 justify-center items-center ">
         {!searched && (
-           <Paper className="mt-4  shadow-lg rounded-xl overflow-hidden">
+           <Paper 
+           style={{
+            backgroundColor: "#3c4043",
+           }}
+           className="mt-4  shadow-lg rounded-xl overflow-hidden bg-neutral-500">
            <div className="p-4">
              <div className="flex items-center gap-4 mb-4">
                <FormControl size="small" className="min-w-[140px]">
@@ -147,7 +84,7 @@ export default function Component() {
                </FormControl>
              </div>
  
-             <div className="grid grid-cols-8 gap-2 items-center mb-4 bg-red-500" >
+             <div className="grid grid-cols-8 gap-2 items-center mb-4 " >
                <div className="col-span-2">
                  <TextField
                    fullWidth
@@ -210,18 +147,18 @@ export default function Component() {
                )}
              </div>
              </div>
- 
-            
- 
              <div className="flex justify-center mt-4">
                <Button
                  variant="contained"
                  onClick={searchFlights}
                  disabled={loading}
                  startIcon={<Search />}
-                 className="bg-[#8ab4f8] hover:bg-[#7aa0e4] text-[#202124] font-medium px-8"
+                 style={{
+                    backgroundColor: "#262626",
+                    color: "white",
+                 }}
                >
-                 Search
+                 Explore
                </Button>
              </div>
            </div>
@@ -276,7 +213,7 @@ export default function Component() {
             )}
           </Box>
         )}
-      </div>
+      </div> */}
     </div>
   );
 }
