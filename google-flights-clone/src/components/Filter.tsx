@@ -57,7 +57,7 @@ export default function FlightSearch() {
   };
 
   return (
-    <div className="min-h-screen p-4 flex items-start justify-center">
+    <div className=" my-12 p-4 flex items-start justify-center">
       <div className="w-full max-w-4xl space-y-4 -mt-6">
         {!searched ? (
           <div className="bg-[#3c4043] rounded-xl p-6 shadow-lg">
